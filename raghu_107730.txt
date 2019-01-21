@@ -1,0 +1,174 @@
+#include <iostream>
+#include<string>
+using namespace std;
+class Person {
+public:
+
+	int personId;
+	string fstName;
+	string lstName;
+	string group;
+
+	Person() {
+		
+	}
+	Person(int pno, string fname, string lname, string group) {
+		this->personId = pno;
+		this->fstName = fname;
+		this->lstName = lname;
+		this->group = group;
+	}
+	void acceptPerson() {
+		cout << "enter Person Id";
+		cin >> personId;
+		cout << "enter First Name";
+		cin >> fstName;
+		cout << "enter Last Name";
+		cin >> lstName;
+		cout << "enter group";
+		cin >> group;
+	}
+	void display() {
+		
+		cout << personId << "\t" << fstName << "\t" << lstName <<"\t"<< group<<endl;
+	}
+	
+};
+
+class Ug :public Person {
+
+};
+
+class Sport {
+
+};
+
+class Pg :public Ug ,Sport{
+
+};
+
+
+
+int main()
+{
+	//Pg obj[5] = { Pg(1001,"raghu","sagar","cse") };
+	//Pg obj(1001, "raghu", "sagar", "cse");
+	//obj[0] = { 1001,"raghu","sagar","cse" };
+	Pg obj[10];
+	obj[0].personId = 1001;
+	obj[0].fstName = "RAGHU";
+	obj[0].lstName = "SAGAR";
+	obj[0].group = "CSE";
+
+	obj[1].personId = 1002;
+	obj[1].fstName = "vinay";
+	obj[1].lstName = "korada";
+	obj[1].group = "ECE";
+
+	obj[2].personId = 1003;
+	obj[2].fstName = "madhu";
+	obj[2].lstName = "sai";
+	obj[2].group = "CIVIL";
+		
+	int num, k = 3;
+	int sid, count=0, temp=0;
+	string f1,f2,f3;
+	do {
+		cout << "choose " <<endl<< "1:enter details" << endl << "2:display details" << endl<<"3:search details" << endl<<"4:update details" << endl<<"5: delete"<<endl;
+		cin >> num;
+		switch (num)
+		{
+		case 1:cout << "enter details" << endl;
+
+			obj[k].acceptPerson();
+			k++;
+			break;
+			
+		case 2:cout << "display details" << endl;
+			for (int j = 0; j < k; j++) {
+				obj[j].display();
+			}
+			break;
+		case 3:cout << "search details" << endl;
+			cout << "enter id to search" << endl;
+			cin>> sid;
+			count = 0;
+			for (int i = 0; i < k; i++) {
+				
+				if (obj[i].personId == sid) {
+					obj[i].display();
+					count=1;
+				}
+				
+			}
+			if (count == 0) {
+				cout << "id doesnot exists"<<endl;
+			}
+			break;
+			case 4:cout << "update details" << endl;
+			cout << "enter the ID for updating";
+			cin >> sid;
+			count = 0;
+			for (int i = 0; i < k; i++) {
+				if (obj[i].personId==sid) {
+					obj[i].display();
+					count++;
+					cout << "enter fname";
+					cin >> f1;
+					cout << "enter last name";
+					cin >> f2;
+					cout << "enter group";
+					cin >> f3;
+					obj[i].fstName = f1;
+					obj[i].lstName = f2;
+                    obj[i].group = f3;
+
+					cout << "-------updated values-------"<<endl;
+					obj[i].display();
+				}
+				
+			}
+			if (count==0) {
+				cout << "id not found" << endl;
+			}
+
+			break;
+			case 5:
+				count = 0;
+				cout << "delete " << endl;
+				cin >> sid;
+				for (int i = 0; i < k; i++)
+			{
+				if (obj[i].personId == sid)
+				{
+					count++;
+					for (int j = i; j < (k - 1); j++)
+					{
+						obj[j] = obj[j + 1];
+					}
+					cout << "ID deleted " << endl;
+					k--;
+					//break;
+				}
+				
+			}
+				if (count==0) {
+					cout << "id not found"<<endl;
+				}
+				//k--;
+				/*if (count>0) {
+					k--;
+				}*/
+				
+				
+				
+				break;
+		default:
+			break;
+		}
+
+	} while (num<6);
+
+	return 0;
+	
+}
